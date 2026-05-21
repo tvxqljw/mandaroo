@@ -1,0 +1,58 @@
+import { LearningCharacter } from '../types/character';
+
+export const characters: LearningCharacter[] = [
+  {
+    id: 'ren',
+    hanzi: '人',
+    pinyin: 'ren',
+    displayPinyin: 'rén',
+    meaning: 'person',
+    emoji: '👋',
+    color: '#ff6b6b',
+  },
+  {
+    id: 'kou',
+    hanzi: '口',
+    pinyin: 'kou',
+    displayPinyin: 'kǒu',
+    meaning: 'mouth',
+    emoji: '😊',
+    color: '#4ecdc4',
+  },
+  {
+    id: 'shan',
+    hanzi: '山',
+    pinyin: 'shan',
+    displayPinyin: 'shān',
+    meaning: 'mountain',
+    emoji: '⛰️',
+    color: '#45b36b',
+  },
+  {
+    id: 'ri',
+    hanzi: '日',
+    pinyin: 'ri',
+    displayPinyin: 'rì',
+    meaning: 'sun',
+    emoji: '☀️',
+    color: '#ffbe3d',
+  },
+  {
+    id: 'yue',
+    hanzi: '月',
+    pinyin: 'yue',
+    displayPinyin: 'yuè',
+    meaning: 'moon',
+    emoji: '🌙',
+    color: '#6c8cff',
+  },
+  {
+    id: 'shui',
+    hanzi: '水',
+    pinyin: 'shui',
+    displayPinyin: 'shuǐ',
+    meaning: 'water',
+    emoji: '💧',
+    color: '#38a3ff',
+  },
+];

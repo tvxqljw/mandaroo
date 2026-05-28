@@ -1,0 +1,46 @@
+export type RelatedWord = {
+  word: string;
+  pinyin: string;
+  meaning: string;
+};
+
+export type RelatedWordMap = Record<string, RelatedWord[]>;
+
+export const relatedWordFallbacks: RelatedWordMap = {
+  人: [
+    { word: '人', pinyin: 'rén', meaning: 'person' },
+    { word: '人口', pinyin: 'rén kǒu', meaning: 'population' },
+    { word: '大人', pinyin: 'dà rén', meaning: 'adult' },
+    { word: '好人', pinyin: 'hǎo rén', meaning: 'good person' },
+  ],
+  口: [
+    { word: '口', pinyin: 'kǒu', meaning: 'mouth' },
+    { word: '开口', pinyin: 'kāi kǒu', meaning: 'to speak' },
+    { word: '门口', pinyin: 'mén kǒu', meaning: 'doorway' },
+    { word: '入口', pinyin: 'rù kǒu', meaning: 'entrance' },
+  ],
+  山: [
+    { word: '山', pinyin: 'shān', meaning: 'mountain' },
+    { word: '高山', pinyin: 'gāo shān', meaning: 'high mountain' },
+    { word: '山上', pinyin: 'shān shàng', meaning: 'on the mountain' },
+    { word: '火山', pinyin: 'huǒ shān', meaning: 'volcano' },
+  ],
+  日: [
+    { word: '日', pinyin: 'rì', meaning: 'day' },
+    { word: '今日', pinyin: 'jīn rì', meaning: 'today' },
+    { word: '生日', pinyin: 'shēng rì', meaning: 'birthday' },
+    { word: '日子', pinyin: 'rì zi', meaning: 'day' },
+  ],
+  月: [
+    { word: '月', pinyin: 'yuè', meaning: 'moon' },
+    { word: '月亮', pinyin: 'yuè liang', meaning: 'moon' },
+    { word: '明月', pinyin: 'míng yuè', meaning: 'bright moon' },
+    { word: '五月', pinyin: 'wǔ yuè', meaning: 'May' },
+  ],
+  水: [
+    { word: '水', pinyin: 'shuǐ', meaning: 'water' },
+    { word: '喝水', pinyin: 'hē shuǐ', meaning: 'drink water' },
+    { word: '开水', pinyin: 'kāi shuǐ', meaning: 'boiled water' },
+    { word: '水果', pinyin: 'shuǐ guǒ', meaning: 'fruit' },
+  ],
+};

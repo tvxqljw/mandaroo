@@ -15,6 +15,7 @@ import {
 
 import { HanziWriterPractice } from './src/components/HanziWriterPractice';
 import { HanziWriterPhraseGrid } from './src/components/HanziWriterPhraseGrid';
+import { RelatedWordsPanel } from './src/components/RelatedWordsPanel';
 import { characters } from './src/data/characters';
 import { colors } from './src/theme/colors';
 import { LearningCharacter } from './src/types/character';
@@ -97,6 +98,19 @@ export default function App() {
   function openPhrase(inputCharacters: string[]) {
     setSelectedPhrase(inputCharacters);
     setScreen('phrase');
+  }
+
+  function openWord(word: string) {
+    const inputCharacters = Array.from(word).filter((item) =>
+      /^\p{Script=Han}$/u.test(item),
+    );
+
+    if (inputCharacters.length <= 1) {
+      openPracticeForCharacter(inputCharacters[0] ?? word);
+      return;
+    }
+
+    openPhrase(inputCharacters);
   }
 
   function deleteHistoryItem(id: string) {
@@ -225,7 +239,11 @@ export default function App() {
       )}
 
       {screen === 'practice' && (
-        <View style={styles.content}>
+        <ScrollView
+          style={styles.practiceScroll}
+          contentContainerStyle={styles.practiceScrollContent}
+          showsVerticalScrollIndicator={false}
+        >
           <Pressable
             onPress={() => setScreen(practiceReturnScreen)}
             style={({ pressed }) => [
@@ -258,7 +276,12 @@ export default function App() {
             onComplete={completePractice}
             onStrokeCountChange={setStrokeCount}
           />
-        </View>
+
+          <RelatedWordsPanel
+            hanzi={selectedCharacter.hanzi}
+            onSelectWord={openWord}
+          />
+        </ScrollView>
       )}
 
       {screen === 'progress' && (
@@ -431,6 +454,14 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     padding: 20,
     paddingBottom: 18,
+  },
+  practiceScroll: {
+    flex: 1,
+  },
+  practiceScrollContent: {
+    flexGrow: 1,
+    padding: 20,
+    paddingBottom: 24,
   },
   hero: {
     backgroundColor: colors.teal,

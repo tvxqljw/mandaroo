@@ -3,6 +3,7 @@ import { pinyin } from 'pinyin-pro';
 import { useState } from 'react';
 import {
   Alert,
+  Image,
   Pressable,
   SafeAreaView,
   ScrollView,
@@ -119,9 +120,7 @@ export default function App() {
           <Text style={styles.logo}>Mandaroo</Text>
           <Text style={styles.subtitle}>Chinese Hanzi Learning</Text>
         </View>
-        <View style={styles.mascot}>
-          <Text style={styles.mascotText}>龙</Text>
-        </View>
+        <Image source={require('./assets/splash-icon.png')} style={styles.mascot} />
       </View>
 
       {screen === 'home' && (
@@ -416,19 +415,8 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   mascot: {
-    alignItems: 'center',
-    backgroundColor: colors.yellow,
-    borderColor: colors.ink,
-    borderRadius: 24,
-    borderWidth: 3,
     height: 58,
-    justifyContent: 'center',
     width: 58,
-  },
-  mascotText: {
-    color: colors.coral,
-    fontSize: 28,
-    fontWeight: '900',
   },
   content: {
     flex: 1,

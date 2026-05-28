@@ -43,6 +43,7 @@ export default function App() {
   const [selectedPhrase, setSelectedPhrase] = useState<string[]>([]);
   const [searchHistory, setSearchHistory] = useState<SearchHistoryItem[]>([]);
   const [completedIds, setCompletedIds] = useState<string[]>([]);
+  const [strokeCount, setStrokeCount] = useState<number | null>(null);
   const inputState = getInputState(inputText);
 
   function completePractice() {
@@ -84,6 +85,7 @@ export default function App() {
 
   function openPracticeForCharacter(hanzi: string) {
     setPracticeReturnScreen(screen === 'phrase' ? 'phrase' : 'home');
+    setStrokeCount(null);
     const character =
       characters.find((item) => item.hanzi === hanzi) ??
       createInputCharacter(hanzi);
@@ -242,6 +244,11 @@ export default function App() {
               <Text style={styles.practiceSubtitle}>
                 {selectedCharacter.meaning}
               </Text>
+              {strokeCount !== null && (
+                <Text style={styles.practiceStrokeCount}>
+                  {strokeCount} strokes
+                </Text>
+              )}
             </View>
             <Text style={styles.practiceBadge}>+1 ⭐</Text>
           </View>
@@ -249,6 +256,7 @@ export default function App() {
           <HanziWriterPractice
             character={selectedCharacter.hanzi}
             onComplete={completePractice}
+            onStrokeCountChange={setStrokeCount}
           />
         </View>
       )}
@@ -609,6 +617,13 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: '700',
     marginTop: 4,
+    textAlign: 'center',
+  },
+  practiceStrokeCount: {
+    color: colors.coral,
+    fontSize: 13,
+    fontWeight: '900',
+    marginTop: 6,
     textAlign: 'center',
   },
   practiceBadge: {

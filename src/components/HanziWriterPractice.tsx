@@ -13,9 +13,14 @@ import { colors } from '../theme/colors';
 type Props = {
   character: string;
   onComplete: () => void;
+  onStrokeCountChange?: (count: number) => void;
 };
 
-export function HanziWriterPractice({ character, onComplete }: Props) {
+export function HanziWriterPractice({
+  character,
+  onComplete,
+  onStrokeCountChange,
+}: Props) {
   const webViewRef = useRef<WebView>(null);
   const celebrationScale = useRef(new Animated.Value(0.8)).current;
   const celebrationOpacity = useRef(new Animated.Value(0)).current;
@@ -37,6 +42,16 @@ export function HanziWriterPractice({ character, onComplete }: Props) {
   }
 
   function handleMessage(event: WebViewMessageEvent) {
+    try {
+      var payload = JSON.parse(event.nativeEvent.data);
+      if (payload && payload.type === 'strokeCount') {
+        onStrokeCountChange?.(payload.count);
+        return;
+      }
+    } catch (error) {
+      // fall through to string commands
+    }
+
     if (event.nativeEvent.data !== 'quizComplete') {
       return;
     }
@@ -272,6 +287,11 @@ function buildHanziWriterHtml(character: string) {
 
       function renderStrokeOrder() {
         HanziWriter.loadCharacterData(character).then(function(charData) {
+          window.ReactNativeWebView && window.ReactNativeWebView.postMessage(JSON.stringify({
+            type: 'strokeCount',
+            count: charData.strokes.length
+          }));
+
           var target = document.getElementById('stroke-order');
           target.innerHTML = '';
 

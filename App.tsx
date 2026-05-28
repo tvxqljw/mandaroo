@@ -33,6 +33,8 @@ type InputState =
 
 export default function App() {
   const [screen, setScreen] = useState<Screen>('home');
+  const [practiceReturnScreen, setPracticeReturnScreen] =
+    useState<Extract<Screen, 'home' | 'phrase'>>('home');
   const [inputText, setInputText] = useState('');
   const [selectedCharacter, setSelectedCharacter] = useState<LearningCharacter>(
     characters[0],
@@ -80,6 +82,7 @@ export default function App() {
   }
 
   function openPracticeForCharacter(hanzi: string) {
+    setPracticeReturnScreen(screen === 'phrase' ? 'phrase' : 'home');
     const character =
       characters.find((item) => item.hanzi === hanzi) ??
       createInputCharacter(hanzi);
@@ -114,7 +117,7 @@ export default function App() {
       <View style={styles.header}>
         <View>
           <Text style={styles.logo}>Mandaroo</Text>
-          <Text style={styles.subtitle}>Dragon-kangaroo Mandarin practice</Text>
+          <Text style={styles.subtitle}>Chinese Hanzi Learning</Text>
         </View>
         <View style={styles.mascot}>
           <Text style={styles.mascotText}>龙</Text>
@@ -223,7 +226,7 @@ export default function App() {
       {screen === 'practice' && (
         <View style={styles.content}>
           <Pressable
-            onPress={() => setScreen('home')}
+            onPress={() => setScreen(practiceReturnScreen)}
             style={({ pressed }) => [
               styles.backButton,
               pressed && styles.pressed,
